@@ -1,4 +1,10 @@
 #!/usr/bin/env python3.8
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sept 7 09:45:53 2023
+
+@author : tmayer
+"""
 import pandas as pd
 from tkinter import *
 from matplotlib.rcsetup import validate_color_for_prop_cycle, validate_color_or_auto

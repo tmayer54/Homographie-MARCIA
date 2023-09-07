@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on We Sept 6 15:10:37 2023
+
 @author : tmayer
 """
 import pandas as pd
@@ -16,32 +17,18 @@ from tkinter import filedialog
 #INIT : 
 zoom_factor = 1.0
 
-# Fonction pour charger une image
-def load_image():
-    file_path = filedialog.askopenfilename(filetypes=[("Fichiers image", "*.jpg *.jpeg *.png *.gif *.bmp")])
-    if file_path:
-        global current_image
-        current_image = Image.open(file_path)
-        update_display()
+"""
+    Function to load an image from a file dialog.
 
-# Fonction pour effectuer une rotation de 90 degrés sur l'image
-def rotate_image():
-    global current_image
-    if current_image:
-        current_image = current_image.rotate(90)
-        update()
+    This function opens a file dialog allowing the user to select an image file
+    (JPEG, PNG, GIF, BMP) and then loads and displays the selected image.
 
-def horizontal_flip():
-    global current_image
-    current_image = current_image.transpose(Image.FLIP_LEFT_RIGHT)
-    update()
+    Parameters:
+        None
 
-def vertical_flip():
-    global current_image
-    current_image = current_image.transpose(Image.FLIP_TOP_BOTTOM)
-    update()
-
-# Fonction pour charger une image dans le cadre actif sélectionné
+    Returns:
+        None
+"""
 def load_image():
     file_path = filedialog.askopenfilename(filetypes=[("Fichiers image", "*.jpg *.jpeg *.png *.gif *.bmp")])
     if file_path:
@@ -49,13 +36,90 @@ def load_image():
         current_image = Image.open(file_path)
         update()
 
-# Fonction pour sauvegarder l'image dans le cadre actif sélectionné
+"""
+    Function to save the current image to a file.
+
+    This function opens a file dialog allowing the user to specify a file name
+    and location to save the current image. It then saves the image in the
+    selected format (JPEG, PNG, GIF, BMP).
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
 def save_image():
     global current_image
     file_path = filedialog.asksaveasfilename(filetypes=[("Fichiers image", "*.jpg *.jpeg *.png *.gif *.bmp")])
     if file_path:
         current_image.save(file_path)
 
+
+"""
+    Function to rotate the current image 90 degrees clockwise.
+
+    This function rotates the currently loaded image 90 degrees clockwise and
+    updates the display with the rotated image.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
+def rotate_image():
+    global current_image
+    if current_image:
+        current_image = current_image.rotate(90)
+        update()
+
+"""
+    Function to horizontally flip the current image.
+
+    This function flips the currently loaded image horizontally (left to right)
+    and updates the display with the flipped image.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
+def horizontal_flip():
+    global current_image
+    current_image = current_image.transpose(Image.FLIP_LEFT_RIGHT)
+    update()
+
+"""
+    Function to vertically flip the current image.
+
+    This function flips the currently loaded image vertically (top to bottom)
+    and updates the display with the flipped image.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
+def vertical_flip():
+    global current_image
+    current_image = current_image.transpose(Image.FLIP_TOP_BOTTOM)
+    update()
+
+"""
+    Function to update the display with the current image.
+
+    This function updates the display in the selected frame with the current
+    image.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
 def update():
     global current_image, selected_frame
     if current_image:
@@ -64,7 +128,19 @@ def update():
         elif selected_frame == img2_frame:
             update_display(image_label2, current_image)
 
-# Fonction pour mettre à jour l'affichage de l'image
+"""
+    Function to update the display frame with the given image.
+
+    This function resizes the given image according to the zoom factor and
+    updates the specified display frame with the resized image.
+
+    Parameters:
+        frame (tkinter.Frame): The frame in which to display the image.
+        image (PIL.Image.Image): The image to be displayed.
+
+    Returns:
+        None
+"""
 def update_display(frame, image):
     if image:
         # Redimensionner l'image
@@ -78,13 +154,37 @@ def update_display(frame, image):
         frame.image = photo
 
 
-# Fonction pour changer le cadre actif
+"""
+    Function to change the selected display frame.
+
+    This function changes the currently selected display frame to the specified
+    frame and updates the image displayed in the new frame accordingly.
+
+    Parameters:
+        frame (tkinter.Frame): The frame to be set as the selected frame.
+
+    Returns:
+        None
+"""
 def change_selected_frame(frame):
     global current_image, selected_frame
     selected_frame = frame
     switch_image(selected_frame)
 
-# Fonction pour changer l'image affichée dans le cadre actif
+"""
+    Function to switch the image displayed in the selected frame.
+
+    This function switches the image displayed in the selected frame with the
+    image stored in the 'images' list based on the selected frame. It checks if
+    an image exists for the selected frame and updates the current image
+    accordingly.
+
+    Parameters:
+        frame (tkinter.Frame): The frame for which to switch the image.
+
+    Returns:
+        None
+"""
 def switch_image(frame):
     global current_image    
     #switch case impossible because we use python version inferior at 3.10
@@ -94,14 +194,35 @@ def switch_image(frame):
         current_image = images[1]
 
             
+"""
+    Function to zoom in on the current image.
 
-# Fonction pour effectuer un zoom avant
+    This function increases the zoom factor by 0.1 and updates the display with
+    the zoomed-in image.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
 def zoom_in():
     global zoom_factor
     zoom_factor += 0.1
     update()
 
-# Fonction pour effectuer un zoom arrière
+"""
+    Function to zoom out from the current image.
+
+    This function decreases the zoom factor by 0.1 and updates the display with
+    the zoomed-out image. The zoom factor cannot go below 0.1.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+"""
 def zoom_out():
     global zoom_factor
     zoom_factor -= 0.1
@@ -162,7 +283,7 @@ img2_frame.pack_propagate(False)
 info1_frame.grid(row=2, column=0, sticky="nsew")
 info2_frame.grid(row=2, column=1, sticky="nsew")
 mixtimg_frame.grid(row=1, rowspan=2, column=2, sticky="nsew")
-
+mixtimg_frame.pack_propagate(False)
 
 # Créer les boutons radio pour sélectionner le cadre actif
 selected_frame = img1_frame  # Par défaut, img1_frame est sélectionné
