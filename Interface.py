@@ -32,8 +32,12 @@ zoom_factor = 1.0
 def load_image():
     file_path = filedialog.askopenfilename(filetypes=[("Fichiers image", "*.jpg *.jpeg *.png *.gif *.bmp")])
     if file_path:
-        global current_image
+        global current_image, selected_frame
         current_image = Image.open(file_path)
+        if selected_frame == img1_frame:
+            images[0] = current_image
+        elif selected_frame == img2_frame:
+            images[1] = current_image
         update()
 
 """

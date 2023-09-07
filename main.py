@@ -6,21 +6,11 @@ Created on Thu Sept 7 14:10:37 2023
 @author : tmayer
 """
 
-
-# main.py
-from tkinter import Tk
-from UI.layout import setup_ui
+from utilz.ui_manager import UI_Manager
 
 if __name__ == "__main__":
-    root = Tk()
-    root.title("MARCIA")
-    root.geometry("1200x730")
-    
-    # Initialize the UI layout
-    setup_ui(root)
-    
-    # Initialize image operations
-    initialize_image_operations(root)
-    
-    # Start the main application loop
-    root.mainloop()
+
+    ui_manager = UI_Manager()
+    ui_manager.setup_ui()
+    ui_manager.initialize_image_operations()
+    ui_manager.start()
