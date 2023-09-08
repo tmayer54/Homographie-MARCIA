@@ -5,9 +5,8 @@ Created on Thu Sept 7 16:21:18 2023
 
 @author : tmayer
 """
-from tkinter import * 
-from typing import Any
-from PIL import Image, ImageTk
+from tkinter import *
+from PIL import ImageTk
 from utilz.image_manager import *
 
 class UI_Manager:
@@ -20,6 +19,7 @@ class UI_Manager:
         self.image_label = None
         self.image_label2 = None
         self.mixtimg_label = None
+        self.info1_label = None
         self.setup_ui()
 
     def setup_ui(self):
@@ -70,6 +70,9 @@ class UI_Manager:
         mixtimg_label = Label(mixtimg_frame)
         mixtimg_label.pack()
 
+        # Créer une étiquette pour afficher les informations de l'image 1
+        self.info1_label = Label(info1_frame, text="test")
+        self.info1_label.pack()
 
         #Création du Menu
         menubar = Menu(self.root)
@@ -100,6 +103,7 @@ class UI_Manager:
         self.root.bind('<Control-q>', lambda event:self.root.quit())
         self.root.bind('<Control-plus>', lambda event:self.zoom_in())
         self.root.bind('<Control-minus>', lambda event:self.zoom_out())
+        self.root.bind('<Button-1>', lambda event:self.on_click)
 
 
     def update(self):
@@ -153,6 +157,10 @@ class UI_Manager:
         self.image_manager.zoom_out()
         self.update()
     
+    def on_click(self,event):
+        x, y = event.x, event.y
+        self.info1_label.config(text=f"Mouse clicked at X: {x}, Y: {y}")
+
     def start(self):
         self.root.mainloop()
 

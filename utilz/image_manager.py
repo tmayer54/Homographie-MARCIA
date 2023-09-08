@@ -6,7 +6,7 @@ Created on Thu Sept 7 16:16:42 2023
 @author : tmayer
 """
 
-from PIL import Image, ImageTk
+from PIL import Image
 from tkinter import filedialog
 
 class ImageManager:
@@ -15,6 +15,7 @@ class ImageManager:
         self.current_image = None
         self.zoom_factor = [1,1]
         self.images = [None, None]
+        self.coords = [[None, None, None, None], [None, None, None, None]]
         self.selected_frame = 0
 
     def load_image(self):
@@ -83,6 +84,7 @@ class ImageManager:
             self.current_image = self.images[0]
         elif self.selected_frame == 1 and self.images[1] != None:
             self.current_image = self.images[1]
+            
     """
     Function to change the selected display frame.
 
@@ -98,3 +100,13 @@ class ImageManager:
     def change_selected_frame(self, frame):
         self.selected_frame = frame
         self.switch_image()
+
+    def add_coords(self, coords):
+        for coord in self.coords[self.selected_frame]:
+            if coord == None:
+                coord = coords
+                break
+        print("Already 4 coords")
+    
+    def remove_coords(self):
+        self.coords[self.selected_frame] = [None, None, None, None]
