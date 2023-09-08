@@ -77,16 +77,16 @@ class UI_Manager:
         filemenu.add_command(label="Ouvrir", command=self.load_image)
         filemenu.add_command(label="Enregistrer", command=self.save_image)
         filemenu.add_separator()
-        filemenu.add_command(label="Quitter", command=self.root.quit)
+        filemenu.add_command(label="Quitter", command=self.root.quit, accelerator="Ctrl+Q")
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
         editmenu = Menu(menubar, tearoff=0)
-        editmenu.add_command(label="Rotation", command=self.rotate_image)
-        editmenu.add_command(label="Horizontal flip", command=self.horizontal_flip)
-        editmenu.add_command(label="Vertical flip", command=self.vertical_flip)
+        editmenu.add_command(label="Rotation", command=self.rotate_image, accelerator="Ctrl+right")
+        editmenu.add_command(label="Horizontal flip", command=self.horizontal_flip, accelerator="Ctrl+left")
+        editmenu.add_command(label="Vertical flip", command=self.vertical_flip, accelerator="Ctrl+up")
         editmenu.add_separator()
-        editmenu.add_command(label="Zoom avant", command=self.zoom_in)
-        editmenu.add_command(label="Zoom arrière", command=self.zoom_out)
+        editmenu.add_command(label="Zoom avant", command=self.zoom_in, accelerator="Ctrl++")
+        editmenu.add_command(label="Zoom arrière", command=self.zoom_out, accelerator="Ctrl+-")
         menubar.add_cascade(label="Edition", menu=editmenu)
 
         helpmenu = Menu(menubar, tearoff=0)
@@ -94,6 +94,12 @@ class UI_Manager:
         menubar.add_cascade(label="Aide", menu=helpmenu)
 
         self.root.config(menu=menubar)
+        self.root.bind('<Control-Right>', lambda event:self.rotate_image())
+        self.root.bind('<Control-Left>', lambda event:self.horizontal_flip())
+        self.root.bind('<Control-Up>', lambda event:self.vertical_flip())
+        self.root.bind('<Control-q>', lambda event:self.root.quit())
+        self.root.bind('<Control-plus>', lambda event:self.zoom_in())
+        self.root.bind('<Control-minus>', lambda event:self.zoom_out())
 
 
     def update(self):
