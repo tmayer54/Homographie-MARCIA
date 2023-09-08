@@ -13,9 +13,9 @@ class ImageManager:
 
     def __init__(self):
         self.current_image = None
-        self.zoom_factor = 1.0
+        self.zoom_factor = [1,1]
         self.images = [None, None]
-        self.selected_frame = 1
+        self.selected_frame = 0
 
     def load_image(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg *.jpeg *.png *.gif *.bmp")])
@@ -41,12 +41,12 @@ class ImageManager:
             self.current_image = self.current_image.transpose(Image.FLIP_TOP_BOTTOM)
 
     def zoom_in(self):
-        self.zoom_factor += 0.1
+        self.zoom_factor[self.selected_frame] += 0.1
 
     def zoom_out(self):
-        self.zoom_factor -= 0.1
-        if self.zoom_factor < 0.1:
-            self.zoom_factor = 0.1
+        self.zoom_factor[self.selected_frame] -= 0.1
+        if self.zoom_factor[self.selected_frame] < 0.1:
+            self.zoom_factor[self.selected_frame] = 0.1
 
     def get_images(self):
         return self.images
@@ -57,8 +57,8 @@ class ImageManager:
     def get_current_image(self):
         return self.current_image
     
-    def get_zoom_factor(self):
-        return self.zoom_factor
+    def get_zoom_factor(self, frame):
+        return self.zoom_factor[frame]
     
     def set_selected_frame(self, frame):
         self.selected_frame = frame

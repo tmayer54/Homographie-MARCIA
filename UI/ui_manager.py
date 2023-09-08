@@ -108,8 +108,8 @@ class UI_Manager:
         if self.image_manager.get_current_image():
             # Redimensionner l'image
             width, height = self.image_manager.get_current_image().size
-            new_width = int(width * self.image_manager.get_zoom_factor())
-            new_height = int(height * self.image_manager.get_zoom_factor())
+            new_width = int(width * self.image_manager.get_zoom_factor(self.image_manager.get_selected_frame()))
+            new_height = int(height * self.image_manager.get_zoom_factor(self.image_manager.get_selected_frame()))
             resized_image = self.image_manager.get_current_image().resize((new_width, new_height))
             # Afficher l'image dans le bon cadre
             photo = ImageTk.PhotoImage(resized_image)
