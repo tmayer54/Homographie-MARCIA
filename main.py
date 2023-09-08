@@ -6,11 +6,13 @@ Created on Thu Sept 7 14:10:37 2023
 @author : tmayer
 """
 
-from utilz.ui_manager import UI_Manager
+from PIL import ImageTk
+from UI.ui_manager import UI_Manager
+from utilz.image_manager import ImageManager
+            
 
 if __name__ == "__main__":
-
+    print("Début du programme")
     ui_manager = UI_Manager()
-    ui_manager.setup_ui()
-    ui_manager.initialize_image_operations()
     ui_manager.start()
+    print("Fin du programme")
