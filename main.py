@@ -10,6 +10,8 @@ from UI.ui_manager import UI_Manager
             
 if __name__ == "__main__":
     print("----------Début du programme----------")
+    print("----------Lancement de l'interface graphique----------")
     ui_manager = UI_Manager()
+    print("----------Interface graphique chargée----------")
     ui_manager.start()
     print("----------Fin du programme----------")

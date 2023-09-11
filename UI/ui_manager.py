@@ -105,7 +105,18 @@ class UI_Manager:
         self.root.bind('<Control-minus>', lambda event:self.zoom_out())
         self.root.bind('<Button-1>', lambda event:self.on_click)
 
+    """
+        Function to update the display with the current image.
 
+        This function updates the display in the selected frame with the current
+        image.
+
+        Parameters:
+            None
+
+        Returns:
+            None
+    """
     def update(self):
         if self.image_manager.get_current_image():
             if self.image_manager.get_selected_frame() == 0:
@@ -113,7 +124,19 @@ class UI_Manager:
             elif self.image_manager.get_selected_frame()  == 1:
                 self.update_display()
     
-    # Fonction pour mettre à jour l'affichage de l'image
+    """
+        Function to update the display frame with the given image.
+
+        This function resizes the given image according to the zoom factor and
+        updates the specified display frame with the resized image.
+
+        Parameters:
+            frame (tkinter.Frame): The frame in which to display the image.
+            image (PIL.Image.Image): The image to be displayed.
+
+        Returns:
+            None
+    """
     def update_display(self):
         if self.image_manager.get_current_image():
             # Redimensionner l'image
